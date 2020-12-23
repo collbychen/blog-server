@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chens.coblog.mapper.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.chens.coblog.domain.Article">
+    <!--@mbg.generated generated on Thu Sep 10 11:54:11 CST 2020.-->
+    <!--@Table article-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="content_md" jdbcType="LONGVARCHAR" property="contentMd" />
+    <result column="category_id" jdbcType="BIGINT" property="categoryId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_top" jdbcType="BOOLEAN" property="isTop" />
+    <result column="is_comment" jdbcType="BOOLEAN" property="isComment" />
+    <result column="is_original" jdbcType="BOOLEAN" property="isOriginal" />
+    <result column="source_url" jdbcType="VARCHAR" property="sourceUrl" />
+    <result column="visits" jdbcType="INTEGER" property="visits" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated generated on Thu Sep 10 11:54:11 CST 2020.-->
+    id, url, title, description, image_url, content, content_md, category_id, create_time,
+    update_time, is_top, is_comment, is_original, source_url, visits, status, type
+  </sql>
+  <select id="getLatest" resultMap="BaseResultMap">
+    SELECT id, url, title, description, image_url, content, content_md, category_id, create_time,
+    update_time, is_top, is_comment, is_original, source_url, visits, status, type
+    FROM article GROUP BY id ORDER BY update_time DESC LIMIT #{number}
+  </select>
+  <select id="getPreviousById" resultMap="BaseResultMap">
+    SELECT id, title, url, status
+    FROM article WHERE id &lt; #{id} AND `status` = 1 ORDER BY id DESC LIMIT 1
+  </select>
+  <select id="getNextById" resultMap="BaseResultMap">
+    SELECT id, title, url, status
+    FROM article WHERE id &gt; #{id} AND `status` = 1 ORDER BY id ASC LIMIT 1
+  </select>
+  <select id="getHot" resultMap="BaseResultMap">
+    SELECT id, title, url, image_url, visits, create_time, status FROM article WHERE `status` = 1 ORDER BY visits DESC LIMIT 4
+  </select>
+  <select id="getArchiveList" resultMap="BaseResultMap">
+    SELECT id, create_time, url, title, status FROM article WHERE `status` = 1 GROUP BY create_time ORDER BY create_time DESC
+  </select>
+
+  <select id="getList" resultMap="BaseResultMap">
+    SELECT id, url, image_url, create_time, title, visits, category_id, description, status FROM article WHERE `status` = 1 GROUP BY create_time ORDER BY create_time DESC
+  </select>
+  <select id="getCountByCategoryId" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM article WHERE category_id = #{categoryId}
+  </select>
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chens.coblog.mapper.LogMapper">
+  <resultMap id="BaseResultMap" type="com.chens.coblog.domain.Log">
+    <!--@mbg.generated generated on Wed Sep 09 11:17:13 CST 2020.-->
+    <!--@Table log-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="referer" jdbcType="VARCHAR" property="referer" />
+    <result column="user_agent" jdbcType="VARCHAR" property="userAgent" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="duration" jdbcType="INTEGER" property="duration" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="params" jdbcType="LONGVARCHAR" property="params" />
+    <result column="result" jdbcType="LONGVARCHAR" property="result" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="is_normal" jdbcType="BOOLEAN" property="isNormal" />
+    <result column="browser" jdbcType="VARCHAR" property="browser" />
+    <result column="operating_system" jdbcType="VARCHAR" property="operatingSystem" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated generated on Wed Sep 09 11:17:13 CST 2020.-->
+    id, ip, city, url, referer, user_agent, create_time, duration, `type`, params, `result`, 
+    `method`, is_normal, browser, operating_system
+  </sql>
+    <select id="selectLatestLog" resultMap="BaseResultMap">
+      select * from log order by create_time desc limit #{number}
+    </select>
+</mapper>

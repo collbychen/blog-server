@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chens.coblog.mapper.LinkMapper">
+  <resultMap id="BaseResultMap" type="com.chens.coblog.domain.Link">
+    <!--@mbg.generated generated on Wed Sep 09 11:17:13 CST 2020.-->
+    <!--@Table link-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated generated on Wed Sep 09 11:17:13 CST 2020.-->
+    id, `name`, url, `type`
+  </sql>
+</mapper>

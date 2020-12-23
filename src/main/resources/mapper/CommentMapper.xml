@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chens.coblog.mapper.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.chens.coblog.domain.Comment">
+    <!--@mbg.generated generated on Wed Sep 09 11:17:13 CST 2020.-->
+    <!--@Table comment-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_agent" jdbcType="VARCHAR" property="userAgent" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="reply_user_id" jdbcType="BIGINT" property="replyUserId" />
+    <result column="target_type" jdbcType="INTEGER" property="targetType" />
+    <result column="article_id" jdbcType="INTEGER" property="articleId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated generated on Wed Sep 09 11:17:13 CST 2020.-->
+    id, user_agent, content, ip, parent_id, user_id, reply_user_id, target_type, article_id, 
+    create_time, `status`
+  </sql>
+
+</mapper>
