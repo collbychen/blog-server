@@ -26,7 +26,7 @@ services:
       - /usr/local/docker/mysql/data:/var/lib/mysql
       # - ./mysql/config/my.cnf:/etc/my.cnf
       # - ./mysql/init:/docker-entrypoint-initdb.d/
-      - /usr/local/docker/server/sql/coblog.sql:/docker-entrypoint-initdb.d/coblog.sql
+      - /usr/local/docker/blog-server/sql/coblog.sql:/docker-entrypoint-initdb.d/coblog.sql
 
   blog:
     image: maven:3.5-jdk-8
@@ -35,8 +35,8 @@ services:
     working_dir: /blog
     restart: always
     volumes:
-      - /usr/local/docker/server/:/blog
-      - ~/.m2:/root/.m2
+      - /usr/local/docker/blog-server:/blog
+      - /usr/local/docker/blog-server/maven/.m2:/root/.m2
     ports:
       - "8080:8080"
     depends_on:
