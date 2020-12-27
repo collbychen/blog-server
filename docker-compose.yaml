@@ -1,26 +1,32 @@
 version: '3'
 services:
   mysql:
-    container_name: blog-mysql
-    image: mysql/mysql-server:5.7
-    privileged: true
+    image: mysql
     restart: always
+    container_name: mysql
     environment:
-      MYSQL_DATABASE: blog
-      MYSQL_ROOT_PASSWORD: 123456
+      TZ: Asia/Shenzhen
+      MYSQL_ROOT_PASSWORD: 3333779
       MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: coblog
+      #MYSQL_USER: 'test'
+      #MYSQL_PASS: 'yourpassword'
+    command:
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --max_allowed_packet=128M
+#    expose:
+#      - "3306"
+    # 测试时使用，正式环境最好不暴露端口到宿主机
+    ports:
+      - "3306:3306"
     volumes:
-      - ./data/mysql:/var/lib/mysql
-      - ./data/blog.sql:/docker-entrypoint-initdb.d/blog.sql
-    expose:
-      - "3306"
-# 测试时使用，正式环境最好不暴露端口到宿主机
-#    ports:
-#      - "3306:3306"
-    command: [
-      '--character-set-server=utf8mb4',
-      '--collation-server=utf8mb4_unicode_ci'
-    ]
+      - /usr/local/docker/mysql/data:/var/lib/mysql
+      # - ./mysql/config/my.cnf:/etc/my.cnf
+      # - ./mysql/init:/docker-entrypoint-initdb.d/
+      - /usr/local/docker/server/sql/coblog.sql:/docker-entrypoint-initdb.d/coblog.sql
 
   blog:
     image: maven:3.5-jdk-8
@@ -29,10 +35,10 @@ services:
     working_dir: /blog
     restart: always
     volumes:
-      - .:/blog
+      - /usr/local/docker/server/:/blog
       - ~/.m2:/root/.m2
     ports:
       - "8080:8080"
     depends_on:
       - mysql
-    command: mvn clean spring-boot:run -Dspring-boot.run.profiles=docker
+    command: mvn clean spring-boot:run -Dspring-boot.run.profiles=prod
