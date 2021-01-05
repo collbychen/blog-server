@@ -1,16 +1,5 @@
 ﻿/*
  Navicat Premium Data Transfer
-
- Source Server         : server
- Source Server Type    : MySQL
- Source Server Version : 80022
- Source Host           : www.coblog.cn:3306
- Source Schema         : coblog
-
- Target Server Type    : MySQL
- Target Server Version : 80022
- File Encoding         : 65001
-
  Date: 27/12/2020 01:49:43
 */
 USE coblog;
