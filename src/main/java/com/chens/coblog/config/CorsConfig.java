@@ -20,12 +20,12 @@ public class CorsConfig {
     private CorsConfiguration buildConfig() {
         // 允许跨域访问的 URL
         String[] allowedOriginsUrl = {
-                "http://localhost:8000",
-                "http://127.0.0.1:8000",
-                "http://localhost:8090",
-                "http://127.0.0.1:8090",
-                "http://localhost:8088",
-                "http://127.0.0.1:8088"
+                "http://localhost:3000",
+                "http://127.0.0.1:3000",
+                "http://localhost:3090",
+                "http://127.0.0.1:3090",
+                "http://localhost:8080",
+                "http://127.0.0.1:8080"
         };
         CorsConfiguration config = new CorsConfiguration();
         // 设置允许跨域访问的 URL

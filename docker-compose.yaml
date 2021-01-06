@@ -1,7 +1,7 @@
 version: '3'
 services:
   mysql:
-    image: mysql
+    image: mysql:8.0.22
     restart: always
     container_name: mysql
     environment:
@@ -31,7 +31,7 @@ services:
 
   blog:
     image: maven:3.5-jdk-8
-    container_name: blog
+    container_name: server
     privileged: true
     working_dir: /blog
     restart: always
@@ -43,3 +43,8 @@ services:
     depends_on:
       - mysql
     command: mvn clean spring-boot:run -Dspring-boot.run.profiles=docker
+
+networks:
+  default:
+    external:
+      name: blog
