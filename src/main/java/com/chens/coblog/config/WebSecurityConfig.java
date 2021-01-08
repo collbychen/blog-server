@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -50,7 +51,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/articles/**",
             "/comments/**",
             "/app/**",
-            "/images/**"
+    };
+
+    private final static String[] STATIC_MAPPING = {
+//            "/css/**",
+//            "/index.html",
+//            "favicon.ico",
+//            "/img/**",
+//            "/tinymce4.7.5/**",
+//            "/js/**",
+//            "/fonts/**",
+//            "/api/login"
+            "/dist/**"
     };
 
     @Bean
@@ -61,6 +73,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(STATIC_MAPPING);
     }
 
     @Override
