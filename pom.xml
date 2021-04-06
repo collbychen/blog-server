@@ -16,7 +16,7 @@
             <id>Chens</id>
             <name>Colby Chen</name>
             <email>376010115@qq.com</email>
-            <url>http://www.coblog.com</url>
+            <url>https://www.coblog.cn</url>
         </developer>
     </developers>
 
@@ -40,8 +40,7 @@
         <thumbnailator.version>0.4.8</thumbnailator.version>
         <jsoup.version>1.11.3</jsoup.version>
         <qiniu.version>[7.4.0, 7.4.99]</qiniu.version>
-<!--        <aliyun.oss.version>2.8.3</aliyun.oss.version>-->
-<!--        <qcloud.cos.version>4.4</qcloud.cos.version>-->
+        <elasticsearch.version>7.10.0</elasticsearch.version>
     </properties>
 
     <dependencies>
@@ -59,47 +58,67 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-devtools</artifactId>-->
+<!--            &lt;!&ndash; 表示依赖不会传递 &ndash;&gt;-->
+<!--            <optional>true</optional>-->
+<!--        </dependency>-->
 
-        <!-- mysql -->
+        <!-- Redis -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-data-redis</artifactId>-->
+<!--        </dependency>-->
+
+        <!-- ElasticSearch -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>7.10.0</version>
         </dependency>
 
-        <!-- lombok -->
+        <!-- TK.Mybatis -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId>
+            <version>${tk.mybatis.version}</version>
         </dependency>
 
-        <!-- ip2region -->
-        <dependency>
-            <groupId>org.lionsoul</groupId>
-            <artifactId>ip2region</artifactId>
-            <version>${ip2region.version}</version>
-        </dependency>
-
-        <!-- page helper -->
+        <!-- Page Helper -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>${pagehelper.version}</version>
         </dependency>
 
-        <!-- validation -->
+        <!-- MySQL Connection -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Ip2region -->
+        <dependency>
+            <groupId>org.lionsoul</groupId>
+            <artifactId>ip2region</artifactId>
+            <version>${ip2region.version}</version>
+        </dependency>
+
+        <!-- Validation -->
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
@@ -112,14 +131,7 @@
             <version>0.9.1</version>
         </dependency>
 
-        <!-- tk.mybatis -->
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-            <version>${tk.mybatis.version}</version>
-        </dependency>
-
-        <!-- commons -->
+        <!-- commons工具类 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -134,18 +146,12 @@
             <version>${commons-io.version}</version>
         </dependency>
 
-        <!-- thumbnailator -->
+        <!-- Thumbnailator 图片压缩 -->
         <dependency>
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
             <version>${thumbnailator.version}</version>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>com.google.guava</groupId>-->
-<!--            <artifactId>guava</artifactId>-->
-<!--            <version>21.0</version>-->
-<!--        </dependency>-->
 
         <!-- 七牛云 -->
         <dependency>
@@ -154,19 +160,19 @@
             <version>${qiniu.version}</version>
         </dependency>
 
+        <!-- Ali Fast Json -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.28</version>
         </dependency>
 
-        <!-- UserAgentUtils -->
+        <!-- UserAgentUtils 获取浏览器信息工具-->
         <dependency>
             <groupId>eu.bitwalker</groupId>
             <artifactId>UserAgentUtils</artifactId>
             <version>${user-agent-utils.version}</version>
         </dependency>
-
 
     </dependencies>
 
@@ -176,6 +182,12 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- fork 如果没有该项配置 devtools 不会起作用，即应用不会restart -->
+                    <fork>true</fork>
+                    <!-- 支持静态文件热部署 -->
+                    <addResources>true</addResources>
+                </configuration>
             </plugin>
         </plugins>
     </build>

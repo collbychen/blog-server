@@ -24,4 +24,3 @@ spring:
 mybatis:
   type-aliases-package: com.chens.coblog.domain
   mapper-locations: classpath:mapper/*.xml
-

@@ -1,42 +1,41 @@
 package com.chens.coblog;
 
-import com.chens.coblog.service.ArticleService;
+import cn.coblog.CoblogApplication;
+import cn.coblog.service.ArticleService;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@SpringBootTest
+import java.io.IOException;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = CoblogApplication.class)
 class CoblogApplicationTests {
 
+
+    @Autowired
+    public RestHighLevelClient client;
     @Autowired
     private ArticleService articleService;
 
     @Test
-    void contextLoads() {
-//        String city = IPUtils.getCity("202.96.134.33");
-//        System.out.println(city);
-//        Calendar c = Calendar.getInstance();
-//        List<Article> archiveList = articleService.getArchiveList();
-//        List<Map<String, Object>> dataList = new ArrayList<>();
-//        String year = "";
-//        List<Article> lists = null;
-//        for (Article a : archiveList){
-//            Map<String, Object> dataMap = new HashMap<>();
-//            boolean b = true;
-//            c.setTime(a.getCreateTime());
-//            if(!year.equals(c.get(Calendar.YEAR)+"")){
-//                year = c.get(Calendar.YEAR)+"";
-//                lists = new ArrayList<>();
-//                b = false;
-//            }
-//            if ( lists != null){
-//            lists.add(a);
-//            }
-//            if (!b){
-//                dataMap.put(year, lists);
-//                dataList.add(dataMap);
-//            }
-//        }
+    void contextLoads() throws IOException {
+        System.out.println("开始");
+//        IndexRequest indexRequest = new IndexRequest("blog");
+//        indexRequest.id("2");
+//        Article article = articleService.getById(7L);
+//        String jsonString = JSONObject.toJSONString(article);
+//        indexRequest.source(jsonString, XContentType.JSON);
+//        IndexResponse index = client.index(indexRequest, ElasticSearchConfig.COMMON_OPTIONS);
+//        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+//        searchSourceBuilder.from(0);
+//        searchSourceBuilder.size(2);
+//        searchSourceBuilder.query(QueryBuilders.matchAllQuery());
+//        List<Article> list = ElasticSearchUtil.search(client, "blog", searchSourceBuilder , Article.class);
+//        System.out.println(client);
     }
 
 }
