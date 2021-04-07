@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("article")
 public interface ArticleApi {
 
-    @GetMapping("lists")
+    @GetMapping("list")
     BaseResponse list(Integer current, Integer size, String title, Integer status, Integer type, Integer categoryId, String sort);
 
     @PostMapping

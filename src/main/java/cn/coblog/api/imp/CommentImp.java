@@ -1,7 +1,6 @@
 package cn.coblog.api.imp;
 
 import cn.coblog.api.admin.CommentApi;
-import cn.coblog.api.front.CommentsApi;
 import cn.coblog.common.base.BasePages;
 import cn.coblog.common.base.BaseResponse;
 import cn.coblog.common.constant.CodeEnum;
@@ -27,7 +26,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @RestController
-public class CommentImp implements CommentsApi, CommentApi {
+public class CommentImp implements CommentApi {
 
     @Autowired
     private CommentService commentService;
@@ -74,17 +73,6 @@ public class CommentImp implements CommentsApi, CommentApi {
     }
 
     @Override
-    public BaseResponse info(Long id) {
-        HashMap<String, Object> result = new HashMap<>(2);
-        //查询当前文章的第一页评论
-        List<Comment> commentPage = commentService.getPageByArticleId(id);
-        result.put("comments", commentPage);
-        Integer commentCount = commentService.getCountByArticleId(id);
-        result.put("count", commentCount);
-        return BaseResponse.success("查询成功", result);
-    }
-
-    @Override
     public BaseResponse commentCount() {
         Map<String, Integer> data = new HashMap<>();
         int total = commentService.getTotalCount();
@@ -103,14 +91,6 @@ public class CommentImp implements CommentsApi, CommentApi {
     @Override
     public BaseResponse getAll() {
         return BaseResponse.success("查询成功", commentService.getAll());
-    }
-
-    @Override
-    public BaseResponse commit(HttpServletRequest request, Comment comment) {
-        comment.setUserAgent(request.getHeader("user-agent"));
-        comment.setIp(IPUtils.getIpAddr(request));
-        comment.setStatus(CommentStatusEnum.PUBLISHED.getValue());
-        return commentService.save(comment) ? BaseResponse.success("添加成功"): BaseResponse.success("添加失败");
     }
 
 }
